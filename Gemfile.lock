@@ -1,0 +1,42 @@
+GIT
+  remote: git://github.com/eoris/codebreaker.git
+  revision: 09bb8e766287027fee14fc2728b1b5f4eb5726d9
+  specs:
+    codebreaker (0.1.2)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    byebug (8.2.1)
+    diff-lcs (1.2.5)
+    rack (1.6.4)
+    rack-test (0.6.3)
+      rack (>= 1.0)
+    rake (10.4.2)
+    rspec (3.4.0)
+      rspec-core (~> 3.4.0)
+      rspec-expectations (~> 3.4.0)
+      rspec-mocks (~> 3.4.0)
+    rspec-core (3.4.1)
+      rspec-support (~> 3.4.0)
+    rspec-expectations (3.4.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.4.0)
+    rspec-mocks (3.4.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.4.0)
+    rspec-support (3.4.1)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  byebug
+  codebreaker!
+  rack
+  rack-test
+  rake
+  rspec
+
+BUNDLED WITH
+   1.10.6
