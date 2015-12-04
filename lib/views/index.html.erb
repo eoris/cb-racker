@@ -1,17 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>WEB page</title>
+    <title>codebreaker</title>
     <link rel="stylesheet" href="/stylesheets/application.css" type="text/css">
   </head>
   <body>
     <div id="container">
-      <h1>You said '<%= answer %>'</h1>
-      <p>Say somthing new</p>
-      <form method="post" action="/update_word">
-        <input name="answer" type="text" autofocus required>
-        <input type="submit" value="Say!">
+      <p>Enter four numbers from 1 to 6:</p>
+      <form method="post" action="/guessing">
+        <input name="answer" type="text" pattern='[1-6]{4}' autofocus required>
+        <input type="submit" value="guess">
       </form>
+      <p>Attempts left: <%= game.attempts %></p>
+      <p>Hints left: <%= game.hint_count %></p>
+      <p>cheet: <%= game.secret_code %></p>
+      <form method="post" action="/start_game">
+        <input type="submit" value="restart">
+      </form>
+
+      <h1> input: <%= input %></h1>
+      <h1>result: <%= answer %></h1>
+
     </div>
   </body>
 </html>
