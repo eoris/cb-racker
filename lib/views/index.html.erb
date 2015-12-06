@@ -6,20 +6,31 @@
   </head>
   <body>
     <div id="container">
-      <p>Enter four numbers from 1 to 6:</p>
+      <p>Enter four numbers between 1 and 6:</p>
       <form method="post" action="/guessing">
-        <input name="answer" type="text" pattern='[1-6]{4}' autofocus required>
+        <input name="suggest" type="text" pattern='[1-6]{4}' autofocus required>
         <input type="submit" value="guess">
       </form>
+
+      <form method="post" action="/hint">
+        <input type="submit" value="hint">
+      </form>
+
       <p>Attempts left: <%= game.attempts %></p>
+      <p>Score: <%= game.score %></p>
       <p>Hints left: <%= game.hint_count %></p>
-      <p>cheet: <%= game.secret_code %></p>
+      <p>Hint: <%= @request.session[:hint].join %></p>
       <form method="post" action="/start_game">
         <input type="submit" value="restart">
       </form>
 
-      <h1> input: <%= input %></h1>
-      <h1>result: <%= answer %></h1>
+      game: <%= p game %> <!-- terminal info -->
+
+
+        <% @request.session[:marks].each do |i| %>
+          <p> <%= i.join(' => ') %></p>
+        <% end %>
+
 
     </div>
   </body>

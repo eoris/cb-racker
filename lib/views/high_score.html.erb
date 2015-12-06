@@ -6,11 +6,10 @@
   </head>
   <body>
     <div id="container">
-      <p>You lose!</p>
-      <p>Secret code was: <%= game.secret_code.join %></p>
-      <form method="post" action="/start_game">
-        <input type="submit" value="restart" autofocus>
-      </form>
+    <p>player: <%= game.user_name %></p>
+    <p>score: <%= game.score %></p>
+    <p>attempts left: <%= game.attempts %></p>
+    <p>hints left: <%= game.hint_count %></p>
     </div>
   </body>
 </html>

@@ -7,8 +7,13 @@
   <body>
     <div id="container">
       <p>You win!</p>
+      <p>Enter your name to save high score, or restart for new game:</p>
+      <form method="post" action="/save_score">
+        <input name="user_name" type="text" pattern='[A-Za-zА-Яа-яЁё]' autofocus required>
+        <input type="submit" value="ok">
+      </form>
       <form method="post" action="/start_game">
-        <input type="submit" value="restart" autofocus>
+        <input type="submit" value="restart">
       </form>
     </div>
   </body>

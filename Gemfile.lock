@@ -1,13 +1,12 @@
 GIT
   remote: git://github.com/eoris/codebreaker.git
-  revision: 09bb8e766287027fee14fc2728b1b5f4eb5726d9
+  revision: 042062ab85775115256b9981ae0db52714dcad97
   specs:
-    codebreaker (0.1.2)
+    codebreaker (0.1.3)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    byebug (8.2.1)
     diff-lcs (1.2.5)
     rack (1.6.4)
     rack-test (0.6.3)
@@ -31,7 +30,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  byebug
   codebreaker!
   rack
   rack-test
