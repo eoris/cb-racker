@@ -49,6 +49,7 @@ class Racker
       @request.session[:game] = Codebreaker::Game.new.start
       @request.session[:marks] = []
       @request.session[:hint] = []
+      @request.session[:saved] = nil
       response.redirect("/")
     end
   end
@@ -118,13 +119,18 @@ class Racker
 
   def save_score
     Rack::Response.new do |response|
-      game.user_name = @request.params["user_name"]
-      score_hash = { name:          game.user_name,
-                     score:         game.score,
-                     attempts_left: game.attempts,
-                     hints_left:    game.hint_count }
-      game.save_game(score_hash)
-      response.redirect("/high_score")
+      if @request.session[:saved]
+        response.redirect("/win")
+      else
+        game.user_name = @request.params["user_name"]
+        score_hash = { name:          game.user_name,
+                       score:         game.score,
+                       attempts_left: game.attempts,
+                       hints_left:    game.hint_count }
+        game.save_game(score_hash)
+        @request.session[:saved] = true
+        response.redirect("/high_score")
+      end
     end
   end
 
