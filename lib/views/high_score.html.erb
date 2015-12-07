@@ -6,10 +6,24 @@
   </head>
   <body>
     <div id="container">
-    <p>player: <%= game.user_name %></p>
-    <p>score: <%= game.score %></p>
-    <p>attempts left: <%= game.attempts %></p>
-    <p>hints left: <%= game.hint_count %></p>
+
+    <table border="1">
+      <caption>Hight Score</caption>
+      <tr>
+        <th>Player</th>
+        <th>Attempts</th>
+        <th>Hints left</th>
+        <th>Score</th>
+      </tr>
+      <% @request.session[:score].each do |s| %>
+      <tr><td><%= s[:name] %></td><td><%= Codebreaker::Game::ATTEMPTS - s[:attempts_left]%></td><td><%= s[:hints_left] %></td><td><%= s[:score] %></td></tr>
+      <% end %>
+    </table>
+
+    <form method="post" action="/start_game">
+      <input type="submit" value="restart">
+    </form>
+
     </div>
   </body>
 </html>

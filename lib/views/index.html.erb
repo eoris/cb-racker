@@ -16,6 +16,10 @@
         <input type="submit" value="hint">
       </form>
 
+      <div>
+        <%= error %>
+      </div>
+
       <p>Attempts left: <%= game.attempts %></p>
       <p>Score: <%= game.score %></p>
       <p>Hints left: <%= game.hint_count %></p>
@@ -24,13 +28,11 @@
         <input type="submit" value="restart">
       </form>
 
-      game: <%= p game %> <!-- terminal info -->
+      <p>game: <%= p game %></p> <!-- terminal info -->
 
-
-        <% @request.session[:marks].each do |i| %>
-          <p> <%= i.join(' => ') %></p>
-        <% end %>
-
+      <% @request.session[:marks].each do |i| %>
+        <p> <%= i.join(' => ') %></p>
+      <% end %>
 
     </div>
   </body>

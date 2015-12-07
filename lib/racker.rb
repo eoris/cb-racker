@@ -39,35 +39,40 @@ class Racker
         response.redirect('/lose')
       else
         response.write(render("index.html.erb"))
+        @request.session[:error] = nil
       end
     end
   end
 
   def start_game
     Rack::Response.new do |response|
-     p @request.session[:game] = Codebreaker::Game.new.start
-      # response.delete_cookie('suggest')
-      # response.delete_cookie('input')
+      @request.session[:game] = Codebreaker::Game.new.start
       @request.session[:marks] = []
       @request.session[:hint] = []
       response.redirect("/")
     end
   end
 
+  def guessing_input
+    input = params_suggest
+    gues = game.guess(params_suggest).join
+    @request.session[:marks] << [input, gues]
+  end
+
   def guessing
     Rack::Response.new do |response|
       begin
-      input = params_suggest
-      guessing = game.guess(params_suggest).join
-     p @request.session[:marks] << [input, guessing]
       if game.win?
         response.redirect('/win')
       elsif game.lose?
         response.redirect('/lose')
       else
+        guessing_input
         response.redirect("/")
       end
       rescue RuntimeError => e
+      @request.session[:error] = "0 from #{Codebreaker::Game::ATTEMPTS} attempts left!"
+      ensure
       response.redirect("/")
       end  
     end
@@ -75,15 +80,18 @@ class Racker
 
   def hint
     Rack::Response.new do |response|
-      begin
-      if game.have_hint?
-       p @request.session[:hint] = [game.hint]
-        response.redirect("/")
+      if game.win?
+        response.redirect("/win")
+      elsif game.lose?
+        response.redirect("/lose")
       else
+        begin
+        @request.session[:hint] = [game.hint]
+        rescue RuntimeError => e
+        @request.session[:error] = "Hint may be used only #{Codebreaker::Game::HINT_COUNT} times!"
+        ensure
         response.redirect("/")
-      end
-      rescue
-      response.redirect("/")
+        end
       end
     end
   end
@@ -111,21 +119,30 @@ class Racker
   def save_score
     Rack::Response.new do |response|
       game.user_name = @request.params["user_name"]
-      score_hash = { "player - #{game.user_name}" => 
-                      { 'score'         => game.score,
-                        'attempts left' => game.attempts,
-                        'hints left'    => game.hint_count } }
+      score_hash = { name:          game.user_name,
+                     score:         game.score,
+                     attempts_left: game.attempts,
+                     hints_left:    game.hint_count }
       game.save_game(score_hash)
       response.redirect("/high_score")
     end
   end
 
   def high_score
-    Rack::Response.new(render("high_score.html.erb"))
+    Rack::Response.new do |response|
+      hash = YAML.load_stream(File.read("saves/score_table"))
+      h = hash.each.sort_by{|v| v[:score]}.reverse
+      @request.session[:score] = h
+      response.write(render("high_score.html.erb"))
+    end
   end
 
   def game
     @request.session[:game]
+  end
+
+  def error
+    @request.session[:error]
   end
 
   def params_suggest
