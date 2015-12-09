@@ -1,29 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>WEB page</title>
-    <link rel="stylesheet" href="/stylesheets/application.css" type="text/css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>codebreaker high scored </title>
+
+    <!-- Bootstrap -->
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+
   </head>
   <body>
-    <div id="container">
-
-    <table border="1">
-      <caption>Hight Score</caption>
-      <tr>
-        <th>Player</th>
-        <th>Attempts</th>
-        <th>Hints left</th>
-        <th>Score</th>
-      </tr>
-      <% @request.session[:score].each do |s| %>
-      <tr><td><%= s[:name] %></td><td><%= Codebreaker::Game::ATTEMPTS - s[:attempts_left]%></td><td><%= s[:hints_left] %></td><td><%= s[:score] %></td></tr>
-      <% end %>
-    </table>
-
-    <form method="post" action="/start_game">
-      <input type="submit" value="restart">
-    </form>
-
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4 text-center">
+        <table class="table table-condensed">
+          <!-- <caption>Hight Score</caption> -->
+          <h3>Hight Score</h3>
+          <tr>
+            <th class="text-center">Player</th>
+            <th class="text-center">Attempts</th>
+            <th class="text-center">Hints left</th>
+            <th class="text-center">Score</th>
+          </tr>
+          <% @request.session[:score].each do |s| %>
+          <tr>
+            <td><%= s[:name] %></td>
+            <td><%= Codebreaker::Game::ATTEMPTS - s[:attempts_left]%></td>
+            <td><%= s[:hints_left] %></td>
+            <td><%= s[:score] %></td>
+          </tr>
+          <% end %>
+        </table>
+          <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+              <form method="post" action="/start_game">
+                <button type="submit" class="btn btn-danger">restart</button>
+              </form>
+            </div>
+            <div class="col-md-4"></div>
+          </div>
+      </div>
+      <div class="col-md-4"></div>
     </div>
+    <!-- jQuery (потрібно для JavaScript плагінів Bootstrap) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- Підключення мінімізованої збірки всіх плагінів jQuery. Можна підключати додаткові плагіни, якщо потрібно -->
+    <script src="js/bootstrap.min.js"></script>
   </body>
 </html>
