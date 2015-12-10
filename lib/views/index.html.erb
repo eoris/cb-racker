@@ -1,39 +1,51 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>codebreaker</title>
-    <link rel="stylesheet" href="/stylesheets/application.css" type="text/css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>codebreaker high scored </title>
+
+    <!-- Bootstrap -->
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+
   </head>
   <body>
-    <div id="container">
-      <p>Enter four numbers between 1 and 6:</p>
-      <form method="post" action="/guessing">
-        <input name="suggest" type="text" pattern='[1-6]{4}' autofocus required>
-        <input type="submit" value="guess">
-      </form>
+    <div class="container">
+      <!-- <div class="row"> -->
+        <div class="col-sm-4 col-md-4 col-lg-4"></div>
+        <div class="col-sm-4 col-md-4 col-lg-4">
 
-      <form method="post" action="/hint">
-        <input type="submit" value="hint">
-      </form>
+          <!-- <p>Enter four numbers between 1 and 6:</p> -->
+          <form method="post" action="/guessing">
+            <input  name="suggest" type="text" pattern='[1-6]{4}' class="form-control text-center" placeholder="" autofocus required>
+            <button type="submit" class="btn btn-success btn-block">guess</button>
+          </form>
+          <form method="post" action="/hint">
+            <button type="submit" class="btn btn-info btn-block" formaction="/hint">hint</button>
+          </form>
+          <form method="post" action="/start_game">
+            <button type="submit" class="btn btn-danger btn-block">restart</button>
+          </form>
 
-      <div>
-        <%= error %>
-      </div>
+          <p class="bg-danger"><%= error %></p>
+          <p>Attempts left: <%= game.attempts %></p>
+          <p>Score: <%= game.score %></p>
+          <p>Hints left: <%= game.hint_count %></p>
+          <p>Hint: <%= @request.session[:hint].join %></p>
+          <table class="table table-hover text-center">
+          <% @request.session[:marks].each do |i| %>
+            <tr>
+              <td class="col-xs-6 col-md-4"> <%= i[0] %></td>
+              <td class="col-xs-6 col-md-4"> <%= i[1] %></td>
+            </tr>
+          <% end %>
+          </table>
 
-      <p>Attempts left: <%= game.attempts %></p>
-      <p>Score: <%= game.score %></p>
-      <p>Hints left: <%= game.hint_count %></p>
-      <p>Hint: <%= @request.session[:hint].join %></p>
-      <form method="post" action="/start_game">
-        <input type="submit" value="restart">
-      </form>
-
-      <p>game: <%= p game %></p> <!-- terminal info -->
-
-      <% @request.session[:marks].each do |i| %>
-        <p> <%= i.join(' => ') %></p>
-      <% end %>
-
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4"></div>
+      <!-- </div> -->
     </div>
+<!--           <%= p game %> -->
   </body>
 </html>
