@@ -12,27 +12,29 @@
   </head>
   <body>
     <div class="container">
-      <!-- <div class="row"> -->
+      <div class="row">
         <div class="col-sm-4 col-md-4 col-lg-4"></div>
         <div class="col-sm-4 col-md-4 col-lg-4">
 
           <!-- <p>Enter four numbers between 1 and 6:</p> -->
+          <h5 class="col-xs-6 text-center">Score: <%= game.score %></h5>
+          <h5 class="col-xs-6 text-center">Hint: <%= @request.session[:hint].join %></h5>
           <form method="post" action="/guessing">
-            <input  name="suggest" type="text" pattern='[1-6]{4}' class="form-control text-center" placeholder="" autofocus required>
+            <input  name="suggest" type="text" pattern='[1-6]{4}' class="form-control text-center" placeholder="<%= game.attempts %> attempts | <%= game.hint_count %> hints" title="It must be a numeric code, or be 1, 2, 3, 4, 5, 6" autofocus required>
             <button type="submit" class="btn btn-success btn-block">guess</button>
           </form>
           <form method="post" action="/hint">
-            <button type="submit" class="btn btn-info btn-block" formaction="/hint">hint</button>
+            <button type="submit" class="btn btn-warning btn-block" formaction="/hint">hint</button>
           </form>
           <form method="post" action="/start_game">
             <button type="submit" class="btn btn-danger btn-block">restart</button>
           </form>
 
-          <p class="bg-danger"><%= error %></p>
-          <p>Attempts left: <%= game.attempts %></p>
-          <p>Score: <%= game.score %></p>
-          <p>Hints left: <%= game.hint_count %></p>
-          <p>Hint: <%= @request.session[:hint].join %></p>
+          <% if error %>
+          <div class="alert alert-danger text-center" role="alert"><%= error %></div>
+          <% end %>
+
+
           <table class="table table-hover text-center">
           <% @request.session[:marks].each do |i| %>
             <tr>
@@ -44,8 +46,10 @@
 
         </div>
         <div class="col-sm-4 col-md-4 col-lg-4"></div>
-      <!-- </div> -->
+      </div>
     </div>
-<!--           <%= p game %> -->
+   <% p game %>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
   </body>
 </html>
