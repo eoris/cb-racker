@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>codebreaker high scored </title>
+    <title>codebreaker:highscore</title>
 
     <!-- Bootstrap -->
     <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
@@ -22,6 +22,7 @@
             <th class="text-center">Attempts</th>
             <th class="text-center">Hints left</th>
             <th class="text-center">Score</th>
+            <th class="text-center">Date</th>
           </tr>
           <% @request.session[:score].each do |s| %>
           <tr>
@@ -29,6 +30,7 @@
             <td><%= Codebreaker::Game::ATTEMPTS - s[:attempts_left]%></td>
             <td><%= s[:hints_left] %></td>
             <td><%= s[:score] %></td>
+            <td><%= s[:win_date] %></td>
           </tr>
           <% end %>
         </table>

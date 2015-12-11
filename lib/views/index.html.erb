@@ -4,10 +4,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>codebreaker high scored </title>
+    <title>codebreaker</title>
 
     <!-- Bootstrap -->
     <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+    <style>.form-control{display: inline;}</style>
 
   </head>
   <body>
@@ -16,11 +17,12 @@
         <div class="col-sm-4 col-md-4 col-lg-4"></div>
         <div class="col-sm-4 col-md-4 col-lg-4">
 
-          <!-- <p>Enter four numbers between 1 and 6:</p> -->
-          <h5 class="col-xs-6 text-center">Score: <%= game.score %></h5>
-          <h5 class="col-xs-6 text-center">Hint: <%= @request.session[:hint].join %></h5>
+          <div class="col-sm-4 col-xs-4 text-center"><h5><a href="/high_score">Score: <%= game.score %></a></h5></div>
+          <div class="col-sm-4 col-sm-4 col-xs-4 text-center "><a data-toggle="popover" data-placement="bottom" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."><h5></h5></a></div>   
+          <div class="col-sm-4 col-xs-4 text-center"><h5>Hint: <%= @request.session[:hint].join %></h5></div>
+
           <form method="post" action="/guessing">
-            <input  name="suggest" type="text" pattern='[1-6]{4}' class="form-control text-center" placeholder="<%= game.attempts %> attempts | <%= game.hint_count %> hints" title="It must be a numeric code, or be 1, 2, 3, 4, 5, 6" autofocus required>
+            <input  name="suggest" type="text" pattern='[1-6]{4}' class="form-control text-center" placeholder="<%= game.attempts %> attempts | <%= game.hint_count %> hints" title="It must be a four numbers, or be 1, 2, 3, 4, 5, 6" autofocus required>
             <button type="submit" class="btn btn-success btn-block">guess</button>
           </form>
           <form method="post" action="/hint">
@@ -34,8 +36,7 @@
           <div class="alert alert-danger text-center" role="alert"><%= error %></div>
           <% end %>
 
-
-          <table class="table table-hover text-center">
+          <table class="table table-condensed text-center">
           <% @request.session[:marks].each do |i| %>
             <tr>
               <td class="col-xs-6 col-md-4"> <%= i[0] %></td>
@@ -48,8 +49,8 @@
         <div class="col-sm-4 col-md-4 col-lg-4"></div>
       </div>
     </div>
-   <% p game %>
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  <!-- <script type="text/javascript">$("[data-toggle=popover]").popover();</script> -->
   </body>
 </html>

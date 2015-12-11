@@ -1,16 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>WEB page</title>
-    <link rel="stylesheet" href="/stylesheets/application.css" type="text/css">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>codebreaker:lose!</title>
+
+    <!-- Bootstrap -->
+    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+
   </head>
   <body>
-    <div id="container">
-      <p>You lose!</p>
-      <p>Secret code was: <%= game.secret_code.join %></p>
-      <form method="post" action="/start_game">
-        <input type="submit" value="restart" autofocus>
-      </form>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4 col-md-4 col-lg-4"></div>
+        <div class="col-sm-4 col-md-4 col-lg-4 text-center">
+          <h3>You lose!</h3>
+          <h4>Secret code was: <%= game.secret_code.join %></h4>
+          <form method="post" action="/start_game">
+            <button type="submit" class="btn btn-danger btn-block">restart</button>
+          </form>
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4"></div>
+      </div>
     </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-4 col-md-4 col-lg-4"></div>
+        <div class="col-sm-4 col-md-4 col-lg-4">
+          <h5></h5>
+          <div class="embed-responsive embed-responsive-16by9">
+            <iframe class="embed-responsive-item" src="//www.youtube.com/embed/dQw4w9WgXcQ?rel=0"></iframe>
+          </div>
+        </div>
+        <div class="col-sm-4 col-md-4 col-lg-4"></div>
+      </div>
+    </div>
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
   </body>
 </html>

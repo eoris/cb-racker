@@ -126,6 +126,7 @@ class Racker
         score_hash = { name:          game.user_name,
                        score:         game.score,
                        attempts_left: game.attempts,
+                       win_date:      Time.now.strftime("%Y-%m-%d %H:%M:%S"),
                        hints_left:    game.hint_count }
         game.save_game(score_hash)
         @request.session[:saved] = true
@@ -136,10 +137,14 @@ class Racker
 
   def high_score
     Rack::Response.new do |response|
-      hash = YAML.load_stream(File.read("saves/score_table"))
-      h = hash.each.sort_by{|v| v[:score]}.reverse
-      @request.session[:score] = h
-      response.write(render("high_score.html.erb"))
+      if File.exist?("saves/score_table")
+        hash = YAML.load_stream(File.read("saves/score_table"))
+        h = hash.each.sort_by{|v| v[:score]}.reverse
+        @request.session[:score] = h
+        response.write(render("high_score.html.erb"))
+      else
+        response.redirect("/")
+      end
     end
   end
 
