@@ -126,7 +126,7 @@ class Racker
         score_hash = { name:          game.user_name,
                        score:         game.score,
                        attempts_left: game.attempts,
-                       win_date:      Time.now.strftime("%Y-%m-%d %H:%M:%S"),
+                       win_date:      Time.now.strftime("%d.%m.%y|%H:%M:%S"),
                        hints_left:    game.hint_count }
         game.save_game(score_hash)
         @request.session[:saved] = true

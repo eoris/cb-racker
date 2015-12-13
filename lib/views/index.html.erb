@@ -14,43 +14,122 @@
   <body>
     <div class="container">
       <div class="row">
-        <div class="col-sm-4 col-md-4 col-lg-4"></div>
-        <div class="col-sm-4 col-md-4 col-lg-4">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
 
-          <div class="col-sm-4 col-xs-4 text-center"><h5><a href="/high_score">Score: <%= game.score %></a></h5></div>
-          <div class="col-sm-4 col-sm-4 col-xs-4 text-center "><a data-toggle="popover" data-placement="bottom" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."><h5></h5></a></div>   
-          <div class="col-sm-4 col-xs-4 text-center"><h5>Hint: <%= @request.session[:hint].join %></h5></div>
+          <div class="col-sm-4 col-xs-4 text-center">
+            <h5>
+              <a href="/high_score">
+                Score:<%= game.score %>
+              </a>
+            </h5>
+          </div>
+          <div class="col-sm-4 col-sm-4 col-xs-4 text-center">
+            <a data-toggle="popover" data-placement="bottom" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+              <h5></h5>
+            </a>
+          </div>
+          <div class="col-sm-4 col-xs-4 text-center">
+            <h5>
+              Hint:<%= @request.session[:hint].join %>
+            </h5>
+          </div>
 
-          <form method="post" action="/guessing">
-            <input  name="suggest" type="text" pattern='[1-6]{4}' class="form-control text-center" placeholder="<%= game.attempts %> attempts | <%= game.hint_count %> hints" title="It must be a four numbers, or be 1, 2, 3, 4, 5, 6" autofocus required>
-            <button type="submit" class="btn btn-success btn-block">guess</button>
+          <form id="guess" method="post" action="/guessing">
+            <input id="guess_input" maxlength="4" name="suggest" type="text" pattern='[1-6]{4}' class="form-control text-center" placeholder="<%= game.attempts %> attempts | <%= game.hint_count %> hints" title="It must be a four numbers, or be 1, 2, 3, 4, 5, 6" autofocus required>
           </form>
-          <form method="post" action="/hint">
-            <button type="submit" class="btn btn-warning btn-block" formaction="/hint">hint</button>
-          </form>
-          <form method="post" action="/start_game">
-            <button type="submit" class="btn btn-danger btn-block">restart</button>
-          </form>
+          <form id="restart" method="post" action="/start_game"></form>
+          <form id="hint" method="post" action="/hint"></form>
+
+          <div id="numPad">
+            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default">1</button>
+              </div>
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default">2</button>
+              </div>
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default">3</button>
+              </div>
+            </div>
+            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default">4</button>
+              </div>
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default">5</button>
+              </div>
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default">6</button>
+              </div>
+            </div>
+          </div>
+            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+              <div class="btn-group" role="group">
+                <button id="numClr" type="button" class="btn btn-default">CLR</button>
+              </div>
+              <div class="btn-group" role="group">
+                <button id="numDel" type="button" class="btn btn-default">DEL</button>
+              </div>
+            </div>
+
+          <div class="btn-group btn-group-justified" role="group" aria-label="...">
+            <div class="btn-group" role="group">
+              <button type="submit" class="btn btn-danger" form="restart">restart</button>
+            </div>
+            <div class="btn-group" role="group">
+              <button type="submit" class="btn btn-warning" form="hint">  hint   </button>
+            </div>
+            <div class="btn-group" role="group">
+              <button type="submit" class="btn btn-success" form="guess"> guess  </button>
+            </div>
+          </div>
 
           <% if error %>
-          <div class="alert alert-danger text-center" role="alert"><%= error %></div>
+            <div class="alert alert-danger text-center" role="alert">
+              <%= error %>
+            </div>
           <% end %>
 
           <table class="table table-condensed text-center">
-          <% @request.session[:marks].each do |i| %>
-            <tr>
-              <td class="col-xs-6 col-md-4"> <%= i[0] %></td>
-              <td class="col-xs-6 col-md-4"> <%= i[1] %></td>
-            </tr>
-          <% end %>
+            <% @request.session[:marks].each do |i| %>
+              <tr>
+                <td class="col-xs-6 col-md-4"> <%= i[0] %></td>
+                <td class="col-xs-6 col-md-4"> <%= i[1] %></td>
+              </tr>
+            <% end %>
           </table>
 
         </div>
-        <div class="col-sm-4 col-md-4 col-lg-4"></div>
+        <div class="col-sm-4"></div>
       </div>
     </div>
+    
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-  <!-- <script type="text/javascript">$("[data-toggle=popover]").popover();</script> -->
+
+    <script>
+    $('#numPad button').click(function() {
+        var value = $(this).text();
+        var input = $('#guess_input');
+        input.val(input.val() + value);
+        return false;
+    });
+
+    $('#numClr').click(function() {
+        var value = $(this).text();
+        var input = $('#guess_input');
+        input.val('');
+        return false;
+    });
+
+    $('#numDel').click(function() {
+        var str = $('#guess_input').val();
+        $('#guess_input').val(str.substring(0, str.length - 1));
+        return false;
+    });
+    </script>
+
   </body>
 </html>
