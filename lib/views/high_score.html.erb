@@ -15,17 +15,19 @@
       <div class="col-md-4"></div>
       <div class="col-md-4 text-center">
         <table class="table table-condensed">
-          <!-- <caption>Hight Score</caption> -->
           <h3>Hight Score</h3>
           <tr>
+            <th class="text-center">#</th>
             <th class="text-center">Player</th>
             <th class="text-center">Attempts</th>
             <th class="text-center">Hints left</th>
             <th class="text-center">Score</th>
             <th class="text-center">Date</th>
           </tr>
+          <% @score_level = 0 %>
           <% @request.session[:score].each do |s| %>
           <tr>
+            <td><%= @score_level += 1 %></td>
             <td><%= s[:name] %></td>
             <td><%= Codebreaker::Game::ATTEMPTS - s[:attempts_left]%></td>
             <td><%= s[:hints_left] %></td>
@@ -38,7 +40,7 @@
             <div class="col-md-4"></div>
             <div class="col-md-4">
               <form method="post" action="/start_game">
-                <button type="submit" class="btn btn-danger">restart</button>
+                <button type="submit" class="btn btn-danger" autofocus>restart</button>
               </form>
             </div>
             <div class="col-md-4"></div>
@@ -46,9 +48,5 @@
       </div>
       <div class="col-md-4"></div>
     </div>
-    <!-- jQuery (потрібно для JavaScript плагінів Bootstrap) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <!-- Підключення мінімізованої збірки всіх плагінів jQuery. Можна підключати додаткові плагіни, якщо потрібно -->
-    <script src="js/bootstrap.min.js"></script>
   </body>
 </html>
