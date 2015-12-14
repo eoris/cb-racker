@@ -7,12 +7,30 @@
     <title>codebreaker</title>
 
     <!-- Bootstrap -->
-    <link href="stylesheets/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <style>.form-control{display: inline;}</style>
 
   </head>
   <body>
     <div class="container">
+
+      <div class="modal fade bs-rules-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="gridSystemModalLabel">Introducing Codebreaker</h4>
+            </div>
+            <div class="modal-body">
+              <p>Codebreaker is a logic game in which a code-breaker tries to break a secret code created by a code-maker. The code-maker, which will be played by the application we’re going to write, creates a secret code of four numbers between 1 and 6.</p>
+              <p>The code-breaker then gets some number of chances to break the code. In each turn, the code-breaker makes a guess of four numbers. The code-maker then marks the guess with up to four + and - signs.</p>
+              <p>A + indicates an exact match: one of the numbers in the guess is the same as one of the numbers in the secret code and in the same position.</p>
+              <p>A - indicates a number match: one of the numbers in the guess is the same as one of the numbers in the secret code but in a different position.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div class="row">
         <div class="col-sm-4"></div>
         <div class="col-sm-4">
@@ -25,9 +43,7 @@
             </h5>
           </div>
           <div class="col-sm-4 col-sm-4 col-xs-4 text-center">
-            <a data-toggle="popover" data-placement="bottom" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
-              <h5></h5>
-            </a>
+              <h5><span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="modal" data-target=".bs-rules-modal-sm"></span></h5>
           </div>
           <div class="col-sm-4 col-xs-4 text-center">
             <h5>
@@ -42,7 +58,7 @@
           <form id="hint" method="post" action="/hint"></form>
 
           <div id="numPad">
-            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+            <div class="btn-group btn-group-justified" role="group" aria-label="123">
               <div class="btn-group" role="group">
                 <button type="button" class="btn btn-default">1</button>
               </div>
@@ -53,7 +69,7 @@
                 <button type="button" class="btn btn-default">3</button>
               </div>
             </div>
-            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+            <div class="btn-group btn-group-justified" role="group" aria-label="456">
               <div class="btn-group" role="group">
                 <button type="button" class="btn btn-default">4</button>
               </div>
@@ -65,7 +81,7 @@
               </div>
             </div>
           </div>
-            <div class="btn-group btn-group-justified" role="group" aria-label="...">
+            <div class="btn-group btn-group-justified" role="group" aria-label="CLR/DEL">
               <div class="btn-group" role="group">
                 <button id="numClr" type="button" class="btn btn-default">CLR</button>
               </div>
@@ -74,7 +90,7 @@
               </div>
             </div>
 
-          <div class="btn-group btn-group-justified" role="group" aria-label="...">
+          <div class="btn-group btn-group-justified" role="group" aria-label="action">
             <div class="btn-group" role="group">
               <button type="submit" class="btn btn-danger" form="restart">restart</button>
             </div>
@@ -106,10 +122,11 @@
       </div>
     </div>
     
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+   <script src="js/bootstrap.min.js"></script>
 
     <script>
+
     $('#numPad button').click(function() {
         var value = $(this).text();
         var input = $('#guess_input');
