@@ -130,8 +130,10 @@
     $('#numPad button').click(function() {
         var value = $(this).text();
         var input = $('#guess_input');
-        input.val(input.val() + value);
-        return false;
+        if (input.val().length < 4) {
+          input.val(input.val() + value);
+          return false;
+        }
     });
 
     $('#numClr').click(function() {

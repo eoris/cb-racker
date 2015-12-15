@@ -16,13 +16,13 @@
       <div class="col-md-4 text-center">
         <table class="table table-condensed">
           <h3>Hight Score</h3>
-          <tr class="text-center">
-            <th>#</th>
-            <th>Player</th>
-            <th>Attempts</th>
-            <th>Hints left</th>
-            <th>Score</th>
-            <th>Date</th>
+          <tr>
+            <th class="text-center">#</th>
+            <th class="text-center">Player</th>
+            <th class="text-center">Attempts</th>
+            <th class="text-center">Hints left</th>
+            <th class="text-center">Score</th>
+            <th class="text-center">Date</th>
           </tr>
           <% @score_level = 0 %>
           <% @request.session[:score].each do |s| %>
