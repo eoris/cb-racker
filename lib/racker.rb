@@ -125,7 +125,7 @@ class Racker
         game.user_name = @request.params["user_name"]
         score_hash = { name:          game.user_name,
                        score:         game.score,
-                       attempts_left: game.attempts,
+                       attempts:      Codebreaker::Game::ATTEMPTS - game.attempts,
                        win_date:      Time.now.strftime("%d.%m.%y|%H:%M:%S"),
                        hints_left:    game.hint_count }
         game.save_game(score_hash)

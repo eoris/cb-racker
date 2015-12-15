@@ -29,7 +29,7 @@
           <tr>
             <td><%= @score_level += 1 %></td>
             <td><%= s[:name] %></td>
-            <td><%= Codebreaker::Game::ATTEMPTS - s[:attempts_left]%></td>
+            <td><%= s[:attempts]%></td>
             <td><%= s[:hints_left] %></td>
             <td><%= s[:score] %></td>
             <td><%= s[:win_date] %></td>
