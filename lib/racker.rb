@@ -1,15 +1,15 @@
 require 'erb'
 require 'codebreaker'
- 
+
 class Racker
   def self.call(env)
     new(env).response.finish
   end
-   
+
   def initialize(env)
     @request = Rack::Request.new(env)
   end
-   
+
   def response
     case @request.path
     when "/"           then index
@@ -23,7 +23,7 @@ class Racker
     else Rack::Response.new("Not Found", 404)
     end
   end
-   
+
   def render(template)
     path = File.expand_path("../views/#{template}", __FILE__)
     ERB.new(File.read(path)).result(binding)
@@ -75,7 +75,7 @@ class Racker
       @request.session[:error] = "0 from #{Codebreaker::Game::ATTEMPTS} attempts left!"
       ensure
       response.redirect("/")
-      end  
+      end
     end
   end
 
