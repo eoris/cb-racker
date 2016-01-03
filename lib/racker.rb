@@ -55,9 +55,14 @@ class Racker
   end
 
   def guessing_input
+    begin
     input = params_suggest
     gues = game.guess(params_suggest).join
     @request.session[:marks] << [input, gues]
+    rescue ArgumentError => e
+    @request.session[:error] = "Code length must be #{Codebreaker::Game::CODE_SIZE}" if input != Codebreaker::Game::CODE_SIZE
+    @request.session[:error] = 'It must be a numeric code, or be 1..6' if input.match(/[^1-6]+/)
+    end
   end
 
   def guessing
